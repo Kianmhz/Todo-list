@@ -9,12 +9,14 @@
 </head>
 
 <body>
+    <div class="hamburger-menu">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+    </div>
+
+    <!-- sidebar -->
     <div class="sidebar">
-        <div class="hamburger-menu">
-            <div class="line line-1"></div>
-            <div class="line line-2"></div>
-            <div class="line line-3"></div>
-        </div>
         <ul>
             <li>Add</li>
             <li>Delete</li>
@@ -22,23 +24,22 @@
         </ul>
     </div>
 
+    <!-- todo list -->
     <div class="todo-list">
         <div class="container">
             <h1 class="todo-title">My To-do List</h1>
-            <label class="todo">
-                <input class="todo-state" type="checkbox" />
-                <div class="todo-text">Do a very important task</div>
-            </label>
 
-            <label class="todo">
-                <input class="todo-state" type="checkbox" />
-                <div class="todo-text">Another important task</div>
-            </label>
-
-            <label class="todo">
-                <input class="todo-state" type="checkbox" />
-                <div class="todo-text">Not so important task</div>
-            </label>
+            <div class="todo">
+                <input class="todo-state" type="checkbox" id="todo-1" />
+                <div class="checkbox">
+                    <div class="checkmark"></div>
+                    <span class="top"></span>
+                    <span class="right"></span>
+                    <span class="left"></span>
+                    <span class="bottom"></span>
+                </div>
+                <label class="todo-text" for="todo-1">Do a very important task</label>
+            </div>
         </div>
     </div>
 </body>

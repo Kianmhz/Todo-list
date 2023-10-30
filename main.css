@@ -17,14 +17,18 @@ body {
     align-items: center;
 }
 
+.hamburger-menu {}
+
+/* hamburger menu lines */
 .line {
     width: 100%;
+    position: relative;
     height: 2px;
     background-color: black;
     margin: 20px 0;
-    z-index: 10000;
 }
 
+/* sidebar menu */
 .sidebar {
     display: flex;
     position: absolute;
@@ -53,6 +57,7 @@ body {
 .todo {
     display: flex;
     align-items: center;
+    position: relative;
     cursor: pointer;
     gap: 10px;
     height: 10vh;
@@ -61,9 +66,9 @@ body {
     width: 100%;
 }
 
+/* crossing a line across text when an item is checked */
 .todo-text {
     position: relative;
-    
 }
 
 .todo-text::before {
@@ -73,47 +78,139 @@ body {
     left: -10px;
     width: 0;
     height: 2px;
-    background-color: red;
-    transition: width 0.5s ease;
+    background-color: black;
+    transition: width 1s ease;
 }
 
-.todo-state:checked ~ .todo-text::before {
+.todo-state:checked~.todo-text::before {
     width: 110%;
 }
 
-.todo-state {
+.checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 
-.todo-state::before {
+.checkbox span {
+    position: absolute;
+    background: black;
+}
+
+.checkbox .top {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    transition: all 0.25s 0.25s ease;
+}
+
+.todo-state:checked~.checkbox .top {
+    left: 0;
+    right: unset;
+}
+
+.checkbox .right {
+    bottom: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    transition: all 0.25s ease;
+}
+
+.todo-state:checked~.checkbox .right {
+    top: 0;
+    bottom: unset;
+}
+
+.checkbox .left {
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    transition: all 0.25s 0.5s ease;
+}
+
+.todo-state:checked~.checkbox .left {
+    bottom: 0;
+    top: unset;
+}
+
+.checkbox .bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transition: all 0.25s 0.75s ease;
+}
+
+.todo-state:checked~.checkbox .bottom {
+    right: 0;
+    left: unset;
+}
+
+.todo-state:checked~.checkbox .right,
+.todo-state:checked~.checkbox .left {
+    height: 0;
+}
+
+.todo-state:checked~.checkbox .top,
+.todo-state:checked~.checkbox .bottom {
+    width: 0;
+}
+
+/* check mark customization */
+.todo-state {
+    display: none;
+}
+
+.checkmark {
+    width: 7px;
+    height: 15px;
+    transform: rotate(210deg);
+}
+
+.checkmark::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 0;
     height: 100%;
-    border-top: 1px solid black;
-    transition: width 0.5s ease;
+    border-top: 2px solid black;
+    transition: width 0.5s 1s ease;
 }
 
-.todo-state:checked::before {
-    width: 100%;
-}
-
-.todo-state::after {
+.checkmark::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     height: 0;
     width: 100%;
-    border-left: 1px solid black;
-    transition: height 0.5s ease;
+    border-left: 2px solid black;
+    transition: height 0.5s 1.5s ease;
 }
 
-.todo-state:checked::after {
+.todo-state:checked~.checkbox .checkmark::before {
+    width: 100%;
+}
+
+.todo-state:checked~.checkbox .checkmark::after {
     height: 100%;
+}
+
+.todo-state:not(:checked)~.checkbox .checkmark::before {
+    left: 0;
+    right: unset;
+    transition-delay: 0s;
+}
+
+.todo-state:not(:checked)~.checkbox .checkmark::after {
+    bottom: 0;
+    top: unset;
+    transition-delay: 0.5s;
 }
