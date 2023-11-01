@@ -24,7 +24,7 @@ body {
     top: 10px;
     left: 20px;
     display: flex;
-    position: absolute;
+    position: fixed;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
@@ -108,7 +108,6 @@ body {
     content: '';
     position: absolute;
     top: 50%;
-    left: -10px;
     width: 0;
     height: 2px;
     background-color: black;
@@ -116,7 +115,7 @@ body {
 }
 
 .todo-state:checked~.todo-text::before {
-    width: 110%;
+    width: 100%;
 }
 
 .checkbox {

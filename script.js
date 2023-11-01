@@ -70,66 +70,103 @@ document.addEventListener('DOMContentLoaded', function() {
     const addTaskButton = document.getElementById('addTaskButton');
     const todoList = document.querySelector('.todo-list .container');
     const taskInput = document.getElementById('taskInput');
-
     let taskIdCounter = 1;
 
-    // Function to add a task
     addTaskButton.addEventListener('click', function() {
-        const taskValue = taskInput.value.trim(); // Get the user input and remove any spaces from start/end
-
-        if (taskValue) {  // Only add the task if it's not empty
-            const newTaskHTML = `
-                <div class="todo">
-                    <input class="todo-state" type="checkbox" id="todo-${taskIdCounter}" />
-                    <div class="checkbox">
-                        <div class="checkmark"></div>
-                        <span class="top"></span>
-                        <span class="right"></span>
-                        <span class="left"></span>
-                        <span class="bottom"></span>
-                    </div>
-                    <label class="todo-text" for="todo-${taskIdCounter}">${taskValue}</label>
-                    <button class="editTaskBtn" style="display:none;">Edit</button>
-                    <button class="deleteTaskBtn" style="display:none;">Delete</button>
-                </div>
-            `;
-
-            todoList.insertAdjacentHTML('beforeend', newTaskHTML);
-            
-            // Add event listener to the delete button of the task
-            const lastTaskDeleteButton = todoList.lastElementChild.querySelector('.deleteTaskBtn');
-            lastTaskDeleteButton.addEventListener('click', function() {
-                this.parentElement.remove(); // This will delete the task when its delete button is clicked
-            });
-
-            // Add event listener to the edit button of the task
-            const lastTaskEditButton = todoList.lastElementChild.querySelector('.editTaskBtn');
-            lastTaskEditButton.addEventListener('click', function() {
-                const label = this.previousElementSibling;
-                const oldValue = label.textContent;
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.value = oldValue;
-                label.replaceWith(input);
-                
-                input.focus();
-                input.addEventListener('blur', function() {
-                    const newValue = input.value.trim();
-                    input.replaceWith(label);
-                    label.textContent = newValue || oldValue; // Use the old value if the new one is empty
-                });
-                
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        input.blur();
-                    }
-                });
-            });
-
-            taskIdCounter++;
-            taskInput.value = '';  // Clear the input field
+        const taskValue = taskInput.value.trim();
+        if (taskValue) {
+            addTask(taskValue, false, taskIdCounter++);
+            taskInput.value = '';
         } else {
             alert('Please enter a valid task!');
         }
     });
+
+    loadTasks();
 });
+
+function addTask(text, isChecked = false, id) {
+    const todoList = document.querySelector('.todo-list .container');
+    const newTaskHTML = `
+        <div class="todo">
+            <input class="todo-state" type="checkbox" id="todo-${id}" ${isChecked ? 'checked' : ''}/>
+            <div class="checkbox">
+                <div class="checkmark"></div>
+                <span class="top"></span>
+                <span class="right"></span>
+                <span class="left"></span>
+                <span class="bottom"></span>
+            </div>
+            <label class="todo-text" for="todo-${id}">${text}</label>
+            <button class="editTaskBtn" style="display:none;">Edit</button>
+            <button class="deleteTaskBtn" style="display:none;">Delete</button>
+        </div>
+    `;
+
+    todoList.insertAdjacentHTML('beforeend', newTaskHTML);
+
+    const newTask = todoList.lastElementChild;
+
+    const deleteButton = newTask.querySelector('.deleteTaskBtn');
+    deleteButton.addEventListener('click', function() {
+        this.parentElement.remove();
+        saveTasks();
+    });
+
+    const editButton = newTask.querySelector('.editTaskBtn');
+    editButton.addEventListener('click', function() {
+        const label = this.previousElementSibling;
+        const oldValue = label.textContent;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = oldValue;
+        label.replaceWith(input);
+
+        input.focus();
+        input.addEventListener('blur', function() {
+            const newValue = input.value.trim();
+            input.replaceWith(label);
+            label.textContent = newValue || oldValue;
+            saveTasks();
+        });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                input.blur();
+            }
+        });
+    });
+
+    saveTasks();
+}
+
+// Ensure checkbox state gets saved when changed
+document.addEventListener('change', (event) => {
+    if (event.target.matches('.todo-state')) {
+        saveTasks();
+    }
+});
+
+function saveTasks() {
+    const tasks = document.querySelectorAll('.todo');
+    const tasksData = [];
+
+    tasks.forEach(task => {
+        const text = task.querySelector('.todo-text').textContent;
+        const isChecked = task.querySelector('.todo-state').checked;
+        tasksData.push({ text, isChecked });
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasksData));
+}
+
+function loadTasks() {
+    const tasksData = JSON.parse(localStorage.getItem('tasks'));
+    let taskIdCounter = 1;
+
+    if (tasksData) {
+        tasksData.forEach(taskData => {
+            addTask(taskData.text, taskData.isChecked, taskIdCounter++);
+        });
+    }
+}
