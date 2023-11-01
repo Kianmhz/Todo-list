@@ -26,6 +26,9 @@ document.querySelector('.hamburger-menu').addEventListener('click', function() {
         line1.style.transform = 'rotate(0deg)';
         line2.style.opacity = '1';
         line3.style.transform = 'rotate(0deg)';
+        document.querySelector('.task-input').style.display = 'none';
+        document.querySelectorAll('.deleteTaskBtn').forEach(btn => btn.style.display = 'none');
+        document.querySelectorAll('.editTaskBtn').forEach(btn => btn.style.display = 'none');
     }
 });
 
@@ -40,12 +43,25 @@ document.querySelector('.add').addEventListener('click', function() {
 });
 
 document.querySelector('.delete').addEventListener('click', function() {
-    let removeTask = document.querySelector('.deleteTaskBtn');
+    let removeTasks = document.querySelectorAll('.deleteTaskBtn');
 
-    if (removeTask.style.display === 'none') {
-        removeTask.style.display = 'block';
-    } else {
-        removeTask.style.display = 'none';
+    for (const removeTask of removeTasks) {
+        if (removeTask.style.display === 'none') {
+            removeTask.style.display = 'block';
+        } else {
+            removeTask.style.display = 'none';
+        }
+    }
+});
+
+document.querySelector('.edit').addEventListener('click', function() {
+    let editTasks = document.querySelectorAll('.editTaskBtn');
+    for (const editTask of editTasks) {
+        if (editTask.style.display === 'none') {
+            editTask.style.display = 'block';
+        } else {
+            editTask.style.display = 'none';
+        }
     }
 });
 
@@ -73,16 +89,41 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span class="bottom"></span>
                     </div>
                     <label class="todo-text" for="todo-${taskIdCounter}">${taskValue}</label>
+                    <button class="editTaskBtn" style="display:none;">Edit</button>
                     <button class="deleteTaskBtn" style="display:none;">Delete</button>
                 </div>
             `;
 
             todoList.insertAdjacentHTML('beforeend', newTaskHTML);
             
-            // Add event listener to the delete button of the newly added task
+            // Add event listener to the delete button of the task
             const lastTaskDeleteButton = todoList.lastElementChild.querySelector('.deleteTaskBtn');
             lastTaskDeleteButton.addEventListener('click', function() {
                 this.parentElement.remove(); // This will delete the task when its delete button is clicked
+            });
+
+            // Add event listener to the edit button of the task
+            const lastTaskEditButton = todoList.lastElementChild.querySelector('.editTaskBtn');
+            lastTaskEditButton.addEventListener('click', function() {
+                const label = this.previousElementSibling;
+                const oldValue = label.textContent;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = oldValue;
+                label.replaceWith(input);
+                
+                input.focus();
+                input.addEventListener('blur', function() {
+                    const newValue = input.value.trim();
+                    input.replaceWith(label);
+                    label.textContent = newValue || oldValue; // Use the old value if the new one is empty
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        input.blur();
+                    }
+                });
             });
 
             taskIdCounter++;
@@ -92,4 +133,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
