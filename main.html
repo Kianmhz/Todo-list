@@ -18,30 +18,22 @@
     <!-- sidebar -->
     <div class="sidebar">
         <ul>
-            <li>Add</li>
-            <li>Delete</li>
-            <li>Update</li>
+            <li class="add">Add a task</li>
+            <div class="task-input">
+                <input type="text" placeholder="Enter your task" id="taskInput">
+                <button id="addTaskButton">Add Task</button>
+            </div>
+            <li class="delete">Delete a task</li>
         </ul>
     </div>
 
     <!-- todo list -->
     <div class="todo-list">
-        <div class="container">
+        <div class="container" id="1">
             <h1 class="todo-title">My To-do List</h1>
-
-            <div class="todo">
-                <input class="todo-state" type="checkbox" id="todo-1" />
-                <div class="checkbox">
-                    <div class="checkmark"></div>
-                    <span class="top"></span>
-                    <span class="right"></span>
-                    <span class="left"></span>
-                    <span class="bottom"></span>
-                </div>
-                <label class="todo-text" for="todo-1">Do a very important task</label>
-            </div>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
