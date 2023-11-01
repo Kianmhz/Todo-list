@@ -17,27 +17,57 @@ body {
     align-items: center;
 }
 
-.hamburger-menu {}
-
-/* hamburger menu lines */
-.line {
-    width: 100%;
-    position: relative;
-    height: 2px;
-    background-color: black;
-    margin: 20px 0;
-}
-
-/* sidebar menu */
-.sidebar {
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    left: 20px;
     display: flex;
     position: absolute;
-    width: 15vw;
-    height: 100vh;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: gainsboro;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.line {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease; 
+}
+
+
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding-top: 50px;
+}
+
+.sidebar li {
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar li:hover {
+    background-color: #eee;
 }
 
 .todo-list {
@@ -58,7 +88,6 @@ body {
     display: flex;
     align-items: center;
     position: relative;
-    cursor: pointer;
     gap: 10px;
     height: 10vh;
     border-bottom: 1px solid #ccc;
