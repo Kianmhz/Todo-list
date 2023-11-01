@@ -98,8 +98,8 @@ function addTask(text, isChecked = false, id) {
                 <span class="bottom"></span>
             </div>
             <label class="todo-text" for="todo-${id}">${text}</label>
-            <button class="editTaskBtn" style="display:none;">Edit</button>
-            <button class="deleteTaskBtn" style="display:none;">Delete</button>
+            <div class="editTaskBtn" style="display:none;"><i class="fa-regular fa-pen-to-square"></i></div>
+            <div class="deleteTaskBtn" style="display:none;"><i class="fa-regular fa-trash-can"></i></div>
         </div>
     `;
 
