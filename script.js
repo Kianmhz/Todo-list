@@ -5,8 +5,8 @@ document.querySelector('.hamburger-menu').addEventListener('click', function() {
     let line2 = document.querySelector('.line-2');
     let line3 = document.querySelector('.line-3');
     
-    if (sidebar.style.left === '-300px') {
-        todo.style.left = '200px';
+    if (sidebar.style.left === '-15vw') {
+        todo.style.left = '10vw';
         sidebar.style.left = '0px';
         line1.style.transform = 'rotate(45deg)';
         line2.style.opacity = '0';
@@ -17,23 +17,23 @@ document.querySelector('.hamburger-menu').addEventListener('click', function() {
         line3.style.width = '42.4px';
 
     } else {
-        todo.style.left = '0px';
+        todo.style.left = '0';
         line3.style.top = '0px';
         line1.style.top = '0px';
         line1.style.width = '100%';
         line3.style.width = '100%';
-        sidebar.style.left = '-300px';
+        sidebar.style.left = '-15vw';
         line1.style.transform = 'rotate(0deg)';
         line2.style.opacity = '1';
         line3.style.transform = 'rotate(0deg)';
-        document.querySelector('.task-input').style.display = 'none';
+        document.querySelector('.task-add').style.display = 'none';
         document.querySelectorAll('.deleteTaskBtn').forEach(btn => btn.style.display = 'none');
         document.querySelectorAll('.editTaskBtn').forEach(btn => btn.style.display = 'none');
     }
 });
 
 document.querySelector('.add').addEventListener('click', function() {
-    let addTask = document.querySelector('.task-input');
+    let addTask = document.querySelector('.task-add');
 
     if (addTask.style.display === 'none') {
         addTask.style.display = 'block';
@@ -98,8 +98,8 @@ function addTask(text, isChecked = false, id) {
                 <span class="bottom"></span>
             </div>
             <label class="todo-text" for="todo-${id}">${text}</label>
-            <div class="editTaskBtn" style="display:none;"><i class="fa-regular fa-pen-to-square"></i></div>
-            <div class="deleteTaskBtn" style="display:none;"><i class="fa-regular fa-trash-can"></i></div>
+            <div class="editTaskBtn" style="display:none; color:lightblue;"><i class="fa-regular fa-pen-to-square"></i></div>
+            <div class="deleteTaskBtn" style="display:none; color:red;"><i class="fa-regular fa-trash-can"></i></div>
         </div>
     `;
 

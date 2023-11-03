@@ -4,17 +4,24 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #EEEEEE;
+    --secondary-color: #00ADB5;
+    --tertiary-color: #393E46;
+    --quaternary-color: #222831;
+}
+
 body {
     font-family: 'Open-sans', sans-serif;
-    background: #fff;
+    background: var(--primary-color);
+    overflow: hidden;
 }
 
 .container {
-    max-width: 1200px;
-    width: 80%;
+    width: 80vw;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
 }
 
 /* Hamburger Menu Styles */
@@ -35,21 +42,19 @@ body {
     position: relative;
     width: 100%;
     height: 4px;
-    background-color: #333;
+    background-color: var(--secondary-color);
     border-radius: 2px;
     transition: all 0.3s ease; 
 }
-
-
 
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 300px;
+    left: -15vw;
+    width: 15vw;
     height: 100vh;
-    background-color: #fff;
+    background-color: var(--tertiary-color);
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     z-index: 50;
@@ -62,16 +67,18 @@ body {
 
 .sidebar li {
     padding: 20px;
+    color: var(--secondary-color);
     font-size: 18px;
     cursor: pointer;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--quaternary-color);
     transition: background-color 0.3s;
 }
 
 .sidebar li:hover {
-    background-color: #eee;
+    background-color: var(--quaternary-color);
 }
 
+/* Todo list customization */
 .todo-list {
     display: flex;
     position: relative;
@@ -85,8 +92,10 @@ body {
     transition: all 0.3s ease;
 }
 
-.todo-title {
+/* To make sure title stays at start */
+.todo-title { 
     width: 100%;
+    color: var(--quaternary-color);
 }
 
 .todo {
@@ -103,6 +112,7 @@ body {
 /* crossing a line across text when an item is checked */
 .todo-text {
     position: relative;
+    color: var(--tertiary-color);
 }
 
 .todo-text::before {
@@ -111,14 +121,15 @@ body {
     top: 50%;
     width: 0;
     height: 2px;
-    background-color: black;
-    transition: width 1s ease;
+    background-color: var(--secondary-color);
+    transition: width 1s ease-in-out;
 }
 
 .todo-state:checked~.todo-text::before {
     width: 100%;
 }
 
+/* Checkbox customization */
 .checkbox {
     display: flex;
     align-items: center;
@@ -128,30 +139,12 @@ body {
     height: 25px;
 }
 
-.checkbox span {
-    position: absolute;
-    background: black;
-}
-
-.checkbox .top {
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 2px;
-    transition: all 0.25s 0.25s ease;
-}
-
-.todo-state:checked~.checkbox .top {
-    left: 0;
-    right: unset;
-}
-
 .checkbox .right {
     bottom: 0;
     right: 0;
     width: 2px;
     height: 100%;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-in;
 }
 
 .todo-state:checked~.checkbox .right {
@@ -159,12 +152,30 @@ body {
     bottom: unset;
 }
 
+.checkbox span {
+    position: absolute;
+    background: var(--secondary-color);
+}
+
+.checkbox .top {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    transition: all 0.25s 0.25s ease-in-out;
+}
+
+.todo-state:checked~.checkbox .top {
+    left: 0;
+    right: unset;
+}
+
 .checkbox .left {
     top: 0;
     left: 0;
     width: 2px;
     height: 100%;
-    transition: all 0.25s 0.5s ease;
+    transition: all 0.25s 0.50s ease-in-out;
 }
 
 .todo-state:checked~.checkbox .left {
@@ -177,7 +188,7 @@ body {
     left: 0;
     width: 100%;
     height: 2px;
-    transition: all 0.25s 0.75s ease;
+    transition: all 0.25s 0.75s ease-out;
 }
 
 .todo-state:checked~.checkbox .bottom {
@@ -201,8 +212,8 @@ body {
 }
 
 .checkmark {
-    width: 7px;
-    height: 15px;
+    width: 8px;
+    height: 20px;
     transform: rotate(210deg);
 }
 
@@ -213,7 +224,7 @@ body {
     right: 0;
     width: 0;
     height: 100%;
-    border-top: 2px solid black;
+    border-top: 2px solid green;
     transition: width 0.5s 1s ease;
 }
 
@@ -224,7 +235,7 @@ body {
     left: 0;
     height: 0;
     width: 100%;
-    border-left: 2px solid black;
+    border-left: 2px solid green;
     transition: height 0.5s 1.5s ease;
 }
 
@@ -248,57 +259,48 @@ body {
     transition-delay: 0.5s;
 }
 
-.task-input {
+/* Add Task input */
+.task-add {
     display: none;
     width: 100%;
     height: auto;
-}
-
-.footer-content {
-    margin-top: 60vh;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.line1 {
-    height: 1px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), black, rgba(255, 255, 255, 0));
-    flex-grow: 1;
-}
-
-.task-input {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 #taskInput {
-    flex: 1;
     position: relative;
     top: -1px;
-    padding: 10px 80px 10px 20px;
-    border: 1px solid #eee;
-    border-top: 1px solid white;
+    padding: 10px;
+    margin-right: 0px;
+    border: 1px solid var(--quaternary-color);
+    border-top: 1px solid var(--tertiary-color);  /* To hide border of "Add a Task" and create smooth tranistion */
     border-bottom-right-radius: 5px;
-    margin-right: 5px;
     outline: none;
     z-index: 100;
+    background-color: var(--tertiary-color);
+}
+
+#taskInput::placeholder {
+    color: var(--secondary-color);
+}
+
+#taskInput:focus {
+    color: var(--secondary-color);
 }
 
 #addTaskButton {
-    background-color: #eee;
+    background-color: green;
     border: none;
     color: white;
-    padding: 10px 12px;
-    border-radius: 50%;
+    padding: 5px 8px;
+    border-radius: 10%;
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s;
 }
 
 #addTaskButton:hover {
-    background-color: #ccc;
+    background-color: lightgreen;
 }
