@@ -65,12 +65,11 @@ document.querySelector('.edit').addEventListener('click', function() {
     }
 });
 
+let taskIdCounter = 1;
 
 document.addEventListener('DOMContentLoaded', function() {
     const addTaskButton = document.getElementById('addTaskButton');
-    const todoList = document.querySelector('.todo-list .container');
     const taskInput = document.getElementById('taskInput');
-    let taskIdCounter = 1;
 
     addTaskButton.addEventListener('click', function() {
         const taskValue = taskInput.value.trim();
@@ -162,7 +161,6 @@ function saveTasks() {
 
 function loadTasks() {
     const tasksData = JSON.parse(localStorage.getItem('tasks'));
-    let taskIdCounter = 1;
 
     if (tasksData) {
         tasksData.forEach(taskData => {
