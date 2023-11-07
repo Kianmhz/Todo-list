@@ -15,6 +15,7 @@ body {
     font-family: 'Open-sans', sans-serif;
     background: var(--primary-color);
     overflow: hidden;
+    margin-top: 50px;
 }
 
 .container {
@@ -114,6 +115,10 @@ body {
     position: relative;
     color: var(--tertiary-color);
     cursor: pointer;
+}
+
+.todo-date {
+    color: #ccc;
 }
 
 .todo-text::before {
@@ -261,29 +266,17 @@ body {
 }
 
 /* Add Task input */
-.task-add {
-    display: none;
+#taskInput,
+#date {
     width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#taskInput {
-    position: relative;
-    top: -1px;
     padding: 10px;
-    margin-right: 0px;
     border: 1px solid var(--quaternary-color);
-    border-top: 1px solid var(--tertiary-color);  /* To hide border of "Add a Task" and create smooth tranistion */
-    border-bottom-right-radius: 5px;
     outline: none;
-    z-index: 100;
     background-color: var(--tertiary-color);
 }
 
-#taskInput::placeholder {
+#taskInput::placeholder,
+#date {
     color: var(--secondary-color);
 }
 
@@ -292,11 +285,11 @@ body {
 }
 
 #addTaskButton {
+    width: 100%;
     background-color: green;
     border: none;
     color: white;
-    padding: 5px 8px;
-    border-radius: 10%;
+    padding: 8px;
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s;

@@ -41,7 +41,7 @@ document.querySelector('.hamburger-menu').addEventListener('click', function() {
     }
 });
 
-// Event listener for add task button click
+// Event listener for sidebar add task button click
 document.querySelector('.add').addEventListener('click', function() {
     let addTask = document.querySelector('.task-add');
     // Toggle the display of the add task input
@@ -52,7 +52,7 @@ document.querySelector('.add').addEventListener('click', function() {
     }
 });
 
-// Event listener for delete button click
+// Event listener for sidebar delete button click
 document.querySelector('.delete').addEventListener('click', function() {
     let removeTasks = document.querySelectorAll('.deleteTaskBtn');
     // Toggle the display of delete buttons for each task
@@ -65,7 +65,7 @@ document.querySelector('.delete').addEventListener('click', function() {
     }
 });
 
-// Event listener for edit button click
+// Event listener for sidebar edit button click
 document.querySelector('.edit').addEventListener('click', function() {
     let editTasks = document.querySelectorAll('.editTaskBtn');
     // Toggle the display of edit buttons for each task
@@ -85,6 +85,7 @@ let taskIdCounter = 1;
 document.addEventListener('DOMContentLoaded', function() {
     // Select add task button and input field
     const addTaskButton = document.getElementById('addTaskButton');
+    const dateInput = document.getElementById('date');
     const taskInput = document.getElementById('taskInput');
 
     // Event listener for the add task button
@@ -93,9 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if task input is not empty
         if (taskValue) {
             // Add task and increment ID counter
-            addTask(taskValue, false, taskIdCounter++);
+            addTask(taskValue, dateInput.value, false, taskIdCounter++);
             // Reset input field
             taskInput.value = '';
+            dateInput.value = '';
         } else {
             alert('Please enter a valid task!');
         }
@@ -106,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Function to add a new task to the list
-function addTask(text, isChecked = false, id, isPriority = false) {
+function addTask(text, date , isChecked = false, id, isPriority = false) {
     const todoList = document.querySelector('.todo-list .container');
     const taskPriorityClass = isPriority ? ' priority-task' : '';
     // Create HTML string for the new task
@@ -121,6 +123,7 @@ function addTask(text, isChecked = false, id, isPriority = false) {
                 <span class="bottom"></span>
             </div>
             <label class="todo-text" for="todo-${id}">${text}</label>
+            <small class="todo-date">${date}</small>
             <div class="editTaskBtn" style="display:none; color:lightblue; cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></div>
             <div class="deleteTaskBtn" style="display:none; color:red; cursor:pointer;"><i class="fa-regular fa-trash-can"></i></div>
             <div class="priority"><i class="fa${isPriority ? '-solid' : '-regular'} fa-star fa-lg"></i></div>
@@ -162,7 +165,7 @@ function addTask(text, isChecked = false, id, isPriority = false) {
     const editButton = newTask.querySelector('.editTaskBtn');
     editButton.addEventListener('click', function() {
         // Replace label with input field for editing
-        const label = this.previousElementSibling;
+        const label = this.parentNode.querySelector('.todo-text');
         const oldValue = label.textContent;
         const input = document.createElement('input');
         input.type = 'text';
@@ -208,9 +211,11 @@ function saveTasks() {
     // Iterate over tasks and create an array of task data
     tasks.forEach(task => {
         const text = task.querySelector('.todo-text').textContent;
+        const date = task.querySelector('.todo-date').textContent;
         const isChecked = task.querySelector('.todo-state').checked;
         const isPriority = task.querySelector('.priority i').classList.contains('fa-solid');
-        tasksData.push({ text, isChecked, isPriority });
+        console.log({ text, date , isChecked, isPriority })
+        tasksData.push({ text, date , isChecked, isPriority });
     });
 
     // Save tasks array to local storage
@@ -224,7 +229,7 @@ function loadTasks() {
     // Iterate over tasks data and add each task to DOM
     if (tasksData) {
         tasksData.forEach(taskData => {
-            addTask(taskData.text, taskData.isChecked, taskIdCounter++, taskData.isPriority);
+            addTask(taskData.text,taskData.date, taskData.isChecked, taskIdCounter++, taskData.isPriority);
         });
     }
 }
