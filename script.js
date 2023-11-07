@@ -2,7 +2,7 @@
 document.querySelector('.hamburger-menu').addEventListener('click', function() {
     // Select elements from the DOM
     let sidebar = document.querySelector('.sidebar');
-    let todo = document.getElementById('1');
+    let todo = document.getElementById('todo-container');
     let line1 = document.querySelector('.line-1');
     let line2 = document.querySelector('.line-2');
     let line3 = document.querySelector('.line-3');
@@ -106,35 +106,30 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Function to add a new task to the list
-function addTask(text, isChecked = false, id) {
+function addTask(text, isChecked = false, id, isPriority = false) {
     const todoList = document.querySelector('.todo-list .container');
+    const taskPriorityClass = isPriority ? ' priority-task' : '';
     // Create HTML string for the new task
     const newTaskHTML = `
-        <!-- Task container -->
-        <div class="todo">
-            <!-- Checkbox for the task -->
+        <div class="todo${taskPriorityClass}">
             <input class="todo-state" type="checkbox" id="todo-${id}" ${isChecked ? 'checked' : ''}/>
-            <!-- Custom styled checkbox -->
             <div class="checkbox">
                 <div class="checkmark"></div>
-                <!-- Checkmark parts -->
                 <span class="top"></span>
                 <span class="right"></span>
                 <span class="left"></span>
                 <span class="bottom"></span>
             </div>
-            <!-- Task label -->
             <label class="todo-text" for="todo-${id}">${text}</label>
-            <!-- Edit and delete buttons -->
-            <div class="editTaskBtn" style="display:none; color:lightblue;"><i class="fa-regular fa-pen-to-square"></i></div>
-            <div class="deleteTaskBtn" style="display:none; color:red;"><i class="fa-regular fa-trash-can"></i></div>
+            <div class="editTaskBtn" style="display:none; color:lightblue; cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></div>
+            <div class="deleteTaskBtn" style="display:none; color:red; cursor:pointer;"><i class="fa-regular fa-trash-can"></i></div>
+            <div class="priority"><i class="fa${isPriority ? '-solid' : '-regular'} fa-star fa-lg"></i></div>
         </div>
     `;
 
     // Insert the new task into the DOM
     todoList.insertAdjacentHTML('beforeend', newTaskHTML);
 
-    // Select the newly added task
     const newTask = todoList.lastElementChild;
 
     // Event listener for delete button
@@ -142,6 +137,24 @@ function addTask(text, isChecked = false, id) {
     deleteButton.addEventListener('click', function() {
         // Remove the task from DOM and save the state
         this.parentElement.remove();
+        saveTasks();
+    });
+
+    const priorityButton = newTask.querySelector('.priority');
+    priorityButton.addEventListener('click', function() {
+        // Toggle priority status and class
+        const parentTask = this.closest('.todo');
+        if (parentTask.classList.contains('priority-task')) {
+            this.innerHTML = '<i class="fa-regular fa-star fa-lg"></i>';
+            parentTask.classList.remove('priority-task');
+        } else {
+            parentTask.classList.add('priority-task');
+            this.innerHTML = '<i class="fa-solid fa-star fa-lg""></i>';
+            // Select the title element
+            const titleElement = document.querySelector('.todo-title');
+            // Move the task to the top, but after the title
+            todoList.insertBefore(parentTask, titleElement.nextSibling);
+        }
         saveTasks();
     });
 
@@ -196,7 +209,8 @@ function saveTasks() {
     tasks.forEach(task => {
         const text = task.querySelector('.todo-text').textContent;
         const isChecked = task.querySelector('.todo-state').checked;
-        tasksData.push({ text, isChecked });
+        const isPriority = task.querySelector('.priority i').classList.contains('fa-solid');
+        tasksData.push({ text, isChecked, isPriority });
     });
 
     // Save tasks array to local storage
@@ -210,7 +224,7 @@ function loadTasks() {
     // Iterate over tasks data and add each task to DOM
     if (tasksData) {
         tasksData.forEach(taskData => {
-            addTask(taskData.text, taskData.isChecked, taskIdCounter++);
+            addTask(taskData.text, taskData.isChecked, taskIdCounter++, taskData.isPriority);
         });
     }
 }

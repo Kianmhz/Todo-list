@@ -305,3 +305,10 @@ body {
 #addTaskButton:hover {
     background-color: lightgreen;
 }
+
+.priority {
+    position: absolute;
+    right: 0;
+    color: rgba(216, 216, 30, 0.813);
+    cursor: pointer;
+}
