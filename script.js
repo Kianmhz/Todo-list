@@ -18,7 +18,7 @@ document.querySelector('.hamburger-menu').addEventListener('click', function() {
         line3.style.transform = 'rotate(-45deg)';
         line3.style.top = '-16px';
         line1.style.top = '10px';
-        // Using pytagoras theorem to calculate the width of the lines
+        // Using pythagoras theorem to calculate the width of the lines
         line1.style.width = '42.4px';
         line3.style.width = '42.4px';
 
