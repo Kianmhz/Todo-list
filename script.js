@@ -92,14 +92,16 @@ document.addEventListener('DOMContentLoaded', function() {
     addTaskButton.addEventListener('click', function() {
         const taskValue = taskInput.value.trim();
         // Check if task input is not empty
-        if (taskValue) {
+        // Convert both the input date and current date to Date objects and then to time values
+        if (taskValue && (!dateInput.value || new Date(dateInput.value + 'T00:00:00').getTime() >= new Date().setHours(0,0,0,0))) {
             // Add task and increment ID counter
             addTask(taskValue, dateInput.value, false, taskIdCounter++);
             // Reset input field
             taskInput.value = '';
             dateInput.value = '';
-        } else {
-            alert('Please enter a valid task!');
+        } 
+        else {
+            alert('Please enter a valid task and a future date or no date at all!');
         }
     });
 
