@@ -1,330 +1,370 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-    color: inherit;
-    text-decoration: none; 
-  }
+  color: inherit;
+  text-decoration: none;
+}
 
 :root {
-    --primary-color: #EEEEEE;
-    --secondary-color: #00ADB5;
-    --tertiary-color: #393E46;
-    --quaternary-color: #222831;
+  --primary-color: #eeeeee;
+  --secondary-color: #00adb5;
+  --tertiary-color: #393e46;
+  --quaternary-color: #222831;
 }
 
 body {
-    font-family: 'Open-sans', sans-serif;
-    background: var(--primary-color);
-    overflow-x: hidden;
-    margin-top: 50px;
+  font-family: "Open-sans", sans-serif;
+  background: var(--primary-color);
+  overflow-x: hidden;
+  margin-top: 50px;
 }
 
 .container {
-    width: 80vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Hamburger Menu Styles */
 .hamburger-menu {
-    width: 30px;
-    height: 30px;
-    top: 10px;
-    left: 20px;
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    z-index: 100;
+  width: 30px;
+  height: 30px;
+  top: 15px;
+  left: 20px;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 100;
 }
 
 .line {
-    position: relative;
-    width: 100%;
-    height: 4px;
-    background-color: var(--secondary-color);
-    border-radius: 2px;
-    transition: all 0.3s ease; 
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background-color: var(--secondary-color);
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
 /* Sidebar Styles */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: -15vw;
-    width: 15vw;
-    height: 100vh;
-    background-color: var(--tertiary-color);
-    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    z-index: 50;
+  position: fixed;
+  top: 0;
+  left: -15vw;
+  width: 15vw;
+  height: 100vh;
+  background-color: var(--tertiary-color);
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 50;
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding-top: 50px;
+.mobile-sidebar {
+  position: fixed;
+  background-color: var(--tertiary-color);
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 50;
+  width: 100vw;
+  bottom: -15vh;
+  height: 20vh;
 }
 
-.sidebar li {
-    padding: 20px;
-    color: var(--secondary-color);
-    font-size: 18px;
-    cursor: pointer;
-    border-bottom: 1px solid var(--quaternary-color);
-    transition: background-color 0.3s;
+.close-m-sidebar {
+  display: none;
 }
 
-.sidebar li:hover {
-    background-color: var(--quaternary-color);
+.sidebar ul,
+.mobile-sidebar ul {
+  list-style-type: none;
+  padding-top: 50px;
+}
+
+.mobile-sidebar ul {
+  padding-top: 0;
+  text-align: center;
+}
+
+.sidebar li,
+.mobile-sidebar li {
+  padding: 20px;
+  color: var(--secondary-color);
+  font-size: 18px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--quaternary-color);
+  transition: background-color 0.3s;
+}
+
+.sidebar li:hover,
+.mobile-sidebar li:hover {
+  background-color: var(--quaternary-color);
 }
 
 /* Todo list customization */
 .todo-list {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    font-size: 20px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  font-size: 20px;
 }
 
 .todo-list .container {
-    flex-direction: column;
-    position: relative;
-    transition: all 0.3s ease;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 /* To make sure title stays at start */
-.todo-title { 
-    width: 100%;
-    color: var(--tertiary-color);
+.todo-title {
+  width: 100%;
+  color: var(--tertiary-color);
 }
 
 .todo {
-    display: flex;
-    align-items: center;
-    position: relative;
-    gap: 10px;
-    height: 10vh;
-    border-bottom: 1px solid #ccc;
-    padding: 0 10px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 10px;
+  height: 10vh;
+  border-bottom: 1px solid #ccc;
+  padding: 0 10px;
+  width: 100%;
 }
 
 /* crossing a line across text when an item is checked */
 .todo-text {
-    position: relative;
-    color: var(--tertiary-color);
-    cursor: pointer;
+  position: relative;
+  color: var(--tertiary-color);
+  cursor: pointer;
 }
 
 .todo-date {
-    color: #ccc;
+  color: #ccc;
 }
 
 .todo-text::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--secondary-color);
-    transition: width 1s ease-in-out;
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--secondary-color);
+  transition: width 1s ease-in-out;
 }
 
-.todo-state:checked~.todo-text::before {
-    width: 100%;
+.todo-state:checked ~ .todo-text::before {
+  width: 100%;
 }
 
 /* Checkbox customization */
 .checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 25px;
-    height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 25px;
+  height: 25px;
 }
 
 .checkbox .right {
-    bottom: 0;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    transition: all 0.25s ease-in;
+  bottom: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  transition: all 0.25s ease-in;
 }
 
-.todo-state:checked~.checkbox .right {
-    top: 0;
-    bottom: unset;
+.todo-state:checked ~ .checkbox .right {
+  top: 0;
+  bottom: unset;
 }
 
 .checkbox span {
-    position: absolute;
-    background: var(--secondary-color);
+  position: absolute;
+  background: var(--secondary-color);
 }
 
 .checkbox .top {
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 2px;
-    transition: all 0.25s 0.25s ease-in-out;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  transition: all 0.25s 0.25s ease-in-out;
 }
 
-.todo-state:checked~.checkbox .top {
-    left: 0;
-    right: unset;
+.todo-state:checked ~ .checkbox .top {
+  left: 0;
+  right: unset;
 }
 
 .checkbox .left {
-    top: 0;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    transition: all 0.25s 0.50s ease-in-out;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  transition: all 0.25s 0.5s ease-in-out;
 }
 
-.todo-state:checked~.checkbox .left {
-    bottom: 0;
-    top: unset;
+.todo-state:checked ~ .checkbox .left {
+  bottom: 0;
+  top: unset;
 }
 
 .checkbox .bottom {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transition: all 0.25s 0.75s ease-out;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transition: all 0.25s 0.75s ease-out;
 }
 
-.todo-state:checked~.checkbox .bottom {
-    right: 0;
-    left: unset;
+.todo-state:checked ~ .checkbox .bottom {
+  right: 0;
+  left: unset;
 }
 
-.todo-state:checked~.checkbox .right,
-.todo-state:checked~.checkbox .left {
-    height: 0;
+.todo-state:checked ~ .checkbox .right,
+.todo-state:checked ~ .checkbox .left {
+  height: 0;
 }
 
-.todo-state:checked~.checkbox .top,
-.todo-state:checked~.checkbox .bottom {
-    width: 0;
+.todo-state:checked ~ .checkbox .top,
+.todo-state:checked ~ .checkbox .bottom {
+  width: 0;
 }
 
 /* check mark customization */
 .todo-state {
-    display: none;
+  display: none;
 }
 
 .checkmark {
-    width: 8px;
-    height: 20px;
-    transform: rotate(210deg);
+  width: 8px;
+  height: 20px;
+  transform: rotate(210deg);
 }
 
 .checkmark::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 100%;
-    border-top: 2px solid green;
-    transition: width 0.5s 1s ease;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  border-top: 2px solid green;
+  transition: width 0.5s 1s ease;
 }
 
 .checkmark::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 0;
-    width: 100%;
-    border-left: 2px solid green;
-    transition: height 0.5s 1.5s ease;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  border-left: 2px solid green;
+  transition: height 0.5s 1.5s ease;
 }
 
-.todo-state:checked~.checkbox .checkmark::before {
-    width: 100%;
+.todo-state:checked ~ .checkbox .checkmark::before {
+  width: 100%;
 }
 
-.todo-state:checked~.checkbox .checkmark::after {
-    height: 100%;
+.todo-state:checked ~ .checkbox .checkmark::after {
+  height: 100%;
 }
 
-.todo-state:not(:checked)~.checkbox .checkmark::before {
-    left: 0;
-    right: unset;
-    transition-delay: 0s;
+.todo-state:not(:checked) ~ .checkbox .checkmark::before {
+  left: 0;
+  right: unset;
+  transition-delay: 0s;
 }
 
-.todo-state:not(:checked)~.checkbox .checkmark::after {
-    bottom: 0;
-    top: unset;
-    transition-delay: 0.5s;
+.todo-state:not(:checked) ~ .checkbox .checkmark::after {
+  bottom: 0;
+  top: unset;
+  transition-delay: 0.5s;
 }
 
 /* Add Task input */
 #taskInput,
 #date {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--quaternary-color);
-    outline: none;
-    background-color: var(--tertiary-color);
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--quaternary-color);
+  outline: none;
+  background-color: var(--tertiary-color);
 }
 
 #taskInput::placeholder,
 #date {
-    color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 #taskInput:focus {
-    color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 #addTaskButton {
-    width: 100%;
-    background-color: green;
-    border: none;
-    color: white;
-    padding: 8px;
-    cursor: pointer;
-    outline: none;
-    transition: background-color 0.3s;
+  width: 100%;
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
 }
 
 #addTaskButton:hover {
-    background-color: lightgreen;
+  background-color: lightgreen;
 }
 
 /* Priority button */
 .priority {
-    position: absolute;
-    right: 0;
-    color: rgba(216, 216, 30, 0.813);
-    cursor: pointer;
+  position: absolute;
+  right: 0;
+  color: rgba(216, 216, 30, 0.813);
+  cursor: pointer;
 }
 
 /* Footer */
 footer {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--secondary-color);
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-color);
 }
 
 .footer-line {
-    height: 1px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--quaternary-color), rgba(255, 255, 255, 0));
-    flex-grow: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    var(--quaternary-color),
+    rgba(255, 255, 255, 0)
+  );
+  flex-grow: 1;
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
+  .hamburger-menu {
+    display: none;
+  }
+  .close-m-sidebar {
+    display: block;
+  }
 }

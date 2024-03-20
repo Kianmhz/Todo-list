@@ -1,53 +1,72 @@
 // Event listener for hamburger menu click
-document
-  .querySelector(".hamburger-menu")
-  .addEventListener("click", function () {
-    // Select elements from the DOM
-    let sidebar = document.querySelector(".sidebar");
-    let todo = document.getElementById("todo-container");
-    let line1 = document.querySelector(".line-1");
-    let line2 = document.querySelector(".line-2");
-    let line3 = document.querySelector(".line-3");
+document.querySelector(".hamburger-menu").addEventListener("click", () => {
+  // Select elements from the DOM
+  let sidebar = document.querySelector(".sidebar");
+  let todo = document.getElementById("todo-container");
+  let line1 = document.querySelector(".line-1");
+  let line2 = document.querySelector(".line-2");
+  let line3 = document.querySelector(".line-3");
 
-    // Check the current state of the sidebar and toggle it
-    if (sidebar.style.left === "-15vw") {
-      // Expand the sidebar
-      todo.style.left = "10vw";
-      sidebar.style.left = "0px";
-      // Animate hamburger icon to cross
-      line1.style.transform = "rotate(45deg)";
-      line2.style.opacity = "0";
-      line3.style.transform = "rotate(-45deg)";
-      line3.style.top = "-16px";
-      line1.style.top = "10px";
-      // Using pythagoras theorem to calculate the width of the lines
-      line1.style.width = "42.4px";
-      line3.style.width = "42.4px";
-    } else {
-      // Collapse the sidebar
-      todo.style.left = "0";
-      line3.style.top = "0px";
-      line1.style.top = "0px";
-      line1.style.width = "100%";
-      line3.style.width = "100%";
-      sidebar.style.left = "-15vw";
-      // Animate hamburger icon back to original state
-      line1.style.transform = "rotate(0deg)";
-      line2.style.opacity = "1";
-      line3.style.transform = "rotate(0deg)";
-      // Hide task-related buttons
-      document.querySelector(".task-add").style.display = "none";
-      document
-        .querySelectorAll(".deleteTaskBtn")
-        .forEach((btn) => (btn.style.display = "none"));
-      document
-        .querySelectorAll(".editTaskBtn")
-        .forEach((btn) => (btn.style.display = "none"));
-    }
-  });
+  // Check the current state of the sidebar and toggle it
+  if (sidebar.style.left === "-15vw") {
+    // Expand the sidebar
+    todo.style.left = "7.5vw";
+    sidebar.style.left = "0px";
+    // Animate hamburger icon to cross
+    line1.style.transform = "rotate(45deg)";
+    line2.style.opacity = "0";
+    line3.style.transform = "rotate(-45deg)";
+    line3.style.top = "-16px";
+    line1.style.top = "10px";
+    // Using pythagoras theorem to calculate the width of the lines
+    line1.style.width = "42.4px";
+    line3.style.width = "42.4px";
+  } else {
+    // Collapse the sidebar
+    todo.style.left = "0";
+    line3.style.top = "0px";
+    line1.style.top = "0px";
+    line1.style.width = "100%";
+    line3.style.width = "100%";
+    sidebar.style.left = "-15vw";
+    // Animate hamburger icon back to original state
+    line1.style.transform = "rotate(0deg)";
+    line2.style.opacity = "1";
+    line3.style.transform = "rotate(0deg)";
+    // Hide task-related buttons
+    document.querySelector(".task-add").style.display = "none";
+    document
+      .querySelectorAll(".deleteTaskBtn")
+      .forEach((btn) => (btn.style.display = "none"));
+    document
+      .querySelectorAll(".editTaskBtn")
+      .forEach((btn) => (btn.style.display = "none"));
+  }
+});
+
+const close_M_sidebar = document.querySelector(".close-m-sidebar");
+close_M_sidebar.addEventListener("click", () => {
+  if (document.querySelector(".mobile-sidebar").style.bottom === "-15vh") {
+    document.querySelector(".mobile-sidebar").style.bottom = "0px";
+    close_M_sidebar.style.transform = "rotate(180deg)";
+  } 
+  else {
+    document.querySelector(".mobile-sidebar").style.bottom = "-15vh";
+    close_M_sidebar.style.transform = "rotate(0deg)";
+    // Hide task-related buttons
+    document.querySelector(".task-add").style.display = "none";
+    document
+      .querySelectorAll(".deleteTaskBtn")
+      .forEach((btn) => (btn.style.display = "none"));
+    document
+      .querySelectorAll(".editTaskBtn")
+      .forEach((btn) => (btn.style.display = "none"));
+  }
+});
+
 
 // Event listener for sidebar add task button click
-document.querySelector(".add").addEventListener("click", function () {
+document.querySelector(".add").addEventListener("click", () => {
   let addTask = document.querySelector(".task-add");
   // Toggle the display of the add task input
   if (addTask.style.display === "none") {
@@ -58,7 +77,7 @@ document.querySelector(".add").addEventListener("click", function () {
 });
 
 // Event listener for sidebar delete button click
-document.querySelector(".delete").addEventListener("click", function () {
+document.querySelector(".delete").addEventListener("click", () => {
   let removeTasks = document.querySelectorAll(".deleteTaskBtn");
   // Toggle the display of delete buttons for each task
   for (const removeTask of removeTasks) {
@@ -71,7 +90,7 @@ document.querySelector(".delete").addEventListener("click", function () {
 });
 
 // Event listener for sidebar edit button click
-document.querySelector(".edit").addEventListener("click", function () {
+document.querySelector(".edit").addEventListener("click", () => {
   let editTasks = document.querySelectorAll(".editTaskBtn");
   // Toggle the display of edit buttons for each task
   for (const editTask of editTasks) {
@@ -87,29 +106,25 @@ document.querySelector(".edit").addEventListener("click", function () {
 let taskIdCounter = 1;
 
 // Event listener for when the DOM content is fully loaded
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   // Select add task button and input field
   const addTaskButton = document.getElementById("addTaskButton");
   const dateInput = document.getElementById("date");
   const taskInput = document.getElementById("taskInput");
 
   // Event listener for the add task button
-  addTaskButton.addEventListener("click", function () {
+  addTaskButton.addEventListener("click", () => {
     const taskValue = taskInput.value.trim();
     // Check if task input is not empty
     // Convert both the input date and current date to Date objects and then to time values
-    if (
-      taskValue &&
-      (!dateInput.value ||
-        new Date(dateInput.value + "T00:00:00").getTime() >=
-          new Date().setHours(0, 0, 0, 0))
-    ) {
+    if (taskValue && (!dateInput.value || new Date(dateInput.value + "T00:00:00").getTime() >= new Date().setHours(0, 0, 0, 0))) {
       // Add task and increment ID counter
       addTask(taskValue, dateInput.value, false, taskIdCounter++);
       // Reset input field
       taskInput.value = "";
       dateInput.value = "";
-    } else {
+    } 
+    else {
       alert("Please enter a valid task and a future date or no date at all!");
     }
   });
@@ -119,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Function to add a new task to the list
-function addTask(text, date, isChecked = false, id, isPriority = false) {
+const addTask = (text, date, isChecked = false, id, isPriority = false) => {
   const todoList = document.querySelector(".todo-list .container");
   const taskPriorityClass = isPriority ? " priority-task" : "";
   // Create HTML string for the new task
@@ -152,14 +167,14 @@ function addTask(text, date, isChecked = false, id, isPriority = false) {
 
   // Event listener for delete button
   const deleteButton = newTask.querySelector(".deleteTaskBtn");
-  deleteButton.addEventListener("click", function () {
+  deleteButton.addEventListener("click", () => {
     // Remove the task from DOM and save the state
     this.parentElement.remove();
     saveTasks();
   });
 
   const priorityButton = newTask.querySelector(".priority");
-  priorityButton.addEventListener("click", function () {
+  priorityButton.addEventListener("click", () => {
     // Toggle priority status and class
     const parentTask = this.closest(".todo");
     if (parentTask.classList.contains("priority-task")) {
@@ -178,7 +193,7 @@ function addTask(text, date, isChecked = false, id, isPriority = false) {
 
   // Event listener for edit button
   const editButton = newTask.querySelector(".editTaskBtn");
-  editButton.addEventListener("click", function () {
+  editButton.addEventListener("click", () => {
     // Replace label with input field for editing
     const label = this.parentNode.querySelector(".todo-text");
     const oldValue = label.textContent;
@@ -190,7 +205,7 @@ function addTask(text, date, isChecked = false, id, isPriority = false) {
     // Focus on the input field
     input.focus();
     // Event listener for when input loses focus
-    input.addEventListener("blur", function () {
+    input.addEventListener("blur", () => {
       // Replace input with label and update text
       const newValue = input.value.trim();
       input.replaceWith(label);
@@ -200,7 +215,7 @@ function addTask(text, date, isChecked = false, id, isPriority = false) {
     });
 
     // Event listener for enter key in input field
-    input.addEventListener("keydown", function (e) {
+    input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         input.blur();
       }
@@ -209,7 +224,7 @@ function addTask(text, date, isChecked = false, id, isPriority = false) {
 
   // Save task state to local storage
   saveTasks();
-}
+};
 
 // Event listener for change in checkbox state
 document.addEventListener("change", (event) => {
@@ -220,7 +235,7 @@ document.addEventListener("change", (event) => {
 });
 
 // Function to save tasks to local storage
-function saveTasks() {
+const saveTasks = () => {
   const tasks = document.querySelectorAll(".todo");
   const tasksData = [];
   // Iterate over tasks and create an array of task data
@@ -237,10 +252,10 @@ function saveTasks() {
 
   // Save tasks array to local storage
   localStorage.setItem("tasks", JSON.stringify(tasksData));
-}
+};
 
 // Function to load tasks from local storage
-function loadTasks() {
+const loadTasks = () => {
   const tasksData = JSON.parse(localStorage.getItem("tasks"));
 
   // Iterate over tasks data and add each task to DOM
@@ -255,7 +270,7 @@ function loadTasks() {
       );
     });
   }
-}
+};
 
 const lightModeColors = {
   "--primary-color": "#EEEEEE",
@@ -273,7 +288,7 @@ const darkModeColors = {
 
 const lightmode = document.querySelector(".LDmode");
 
-lightmode.addEventListener("click", function () {
+lightmode.addEventListener("click", () => {
   if (document.body.classList.contains("dark-mode")) {
     lightmode.innerHTML = "Switch to Dark mode";
     // Apply light mode colors
@@ -286,9 +301,9 @@ lightmode.addEventListener("click", function () {
   document.body.classList.toggle("dark-mode");
 });
 
-function applyColors(colorScheme) {
-  const root = document.documentElement; // Reference to the :root element
+const applyColors = (colorScheme) => {
+  const root = document.documentElement;
   Object.keys(colorScheme).forEach((key) => {
     root.style.setProperty(key, colorScheme[key]);
   });
-}
+};
