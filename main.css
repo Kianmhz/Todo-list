@@ -101,7 +101,7 @@ body {
 /* To make sure title stays at start */
 .todo-title { 
     width: 100%;
-    color: var(--quaternary-color);
+    color: var(--tertiary-color);
 }
 
 .todo {
