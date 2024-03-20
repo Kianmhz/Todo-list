@@ -267,7 +267,7 @@ const lightModeColors = {
 const darkModeColors = {
   "--primary-color": "#222831",
   "--secondary-color": "#0F4C75",
-  "--tertiary-color": "#BBE1FA",
+  "--tertiary-color": "#95b4c8",
   "--quaternary-color": "#3282B8",
 };
 
