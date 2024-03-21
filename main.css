@@ -73,12 +73,7 @@ body {
   transition: all 0.3s ease;
   z-index: 50;
   width: 100vw;
-  bottom: -15vh;
-  height: 20vh;
-}
-
-.close-m-sidebar {
-  display: none;
+  bottom: -280px;
 }
 
 .sidebar ul,
@@ -89,12 +84,14 @@ body {
 
 .mobile-sidebar ul {
   padding-top: 0;
-  text-align: center;
 }
 
 .sidebar li,
 .mobile-sidebar li {
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
   color: var(--secondary-color);
   font-size: 18px;
   cursor: pointer;
@@ -360,11 +357,5 @@ footer {
 @media (max-width: 1000px) {
   .sidebar {
     display: none;
-  }
-  .hamburger-menu {
-    display: none;
-  }
-  .close-m-sidebar {
-    display: block;
   }
 }

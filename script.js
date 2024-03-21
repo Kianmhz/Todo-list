@@ -2,68 +2,110 @@
 document.querySelector(".hamburger-menu").addEventListener("click", () => {
   // Select elements from the DOM
   let sidebar = document.querySelector(".sidebar");
+  let mobile_sidebar = document.querySelector(".mobile-sidebar");
   let todo = document.getElementById("todo-container");
   let line1 = document.querySelector(".line-1");
   let line2 = document.querySelector(".line-2");
   let line3 = document.querySelector(".line-3");
 
-  // Check the current state of the sidebar and toggle it
-  if (sidebar.style.left === "-15vw") {
-    // Expand the sidebar
-    todo.style.left = "7.5vw";
-    sidebar.style.left = "0px";
-    // Animate hamburger icon to cross
-    line1.style.transform = "rotate(45deg)";
-    line2.style.opacity = "0";
-    line3.style.transform = "rotate(-45deg)";
-    line3.style.top = "-16px";
-    line1.style.top = "10px";
-    // Using pythagoras theorem to calculate the width of the lines
-    line1.style.width = "42.4px";
-    line3.style.width = "42.4px";
+  if (sidebar) {
+    // Check the current state of the sidebar and toggle it
+    if (sidebar.style.left === "-15vw") {
+      // Expand the sidebar
+      todo.style.left = "7.5vw";
+      sidebar.style.left = "0px";
+      // Animate hamburger icon to cross
+      line1.style.transform = "rotate(45deg)";
+      line2.style.opacity = "0";
+      line3.style.transform = "rotate(-45deg)";
+      line3.style.top = "-16px";
+      line1.style.top = "10px";
+      // Using pythagoras theorem to calculate the width of the lines
+      line1.style.width = "42.4px";
+      line3.style.width = "42.4px";
+    } 
+    else {
+      // Collapse the sidebar
+      todo.style.left = "0";
+      line3.style.top = "0px";
+      line1.style.top = "0px";
+      line1.style.width = "100%";
+      line3.style.width = "100%";
+      sidebar.style.left = "-15vw";
+      // Animate hamburger icon back to original state
+      line1.style.transform = "rotate(0deg)";
+      line2.style.opacity = "1";
+      line3.style.transform = "rotate(0deg)";
+      // Hide task-related buttons
+      document.querySelector(".task-add").style.display = "none";
+      document
+        .querySelectorAll(".deleteTaskBtn")
+        .forEach((btn) => (btn.style.display = "none"));
+      document
+        .querySelectorAll(".editTaskBtn")
+        .forEach((btn) => (btn.style.display = "none"));
+    }
+  }
+  if (mobile_sidebar) {
+    if (mobile_sidebar.style.bottom === "-280px") {
+      mobile_sidebar.style.bottom = "0px";
+      // Animate hamburger icon to cross
+      line1.style.transform = "rotate(45deg)";
+      line2.style.opacity = "0";
+      line3.style.transform = "rotate(-45deg)";
+      line3.style.top = "-16px";
+      line1.style.top = "10px";
+      // Using pythagoras theorem to calculate the width of the lines
+      line1.style.width = "42.4px";
+      line3.style.width = "42.4px";
+    } 
+    else {
+      mobile_sidebar.style.bottom = "-280px";
+      line3.style.top = "0px";
+      line1.style.top = "0px";
+      line1.style.width = "100%";
+      line3.style.width = "100%";
+      // Animate hamburger icon back to original state
+      line1.style.transform = "rotate(0deg)";
+      line2.style.opacity = "1";
+      line3.style.transform = "rotate(0deg)";
+      // Hide task-related buttons
+      document.querySelector(".task-add").style.display = "none";
+      document
+        .querySelectorAll(".deleteTaskBtn")
+        .forEach((btn) => (btn.style.display = "none"));
+      document
+        .querySelectorAll(".editTaskBtn")
+        .forEach((btn) => (btn.style.display = "none"));
+    }
+  }
+});
+
+const adjustSidebarForDevice = () => {
+  let nav = document.querySelector("nav");
+  // Check if the device width is less than or equal to 768px (common breakpoint for mobile devices)
+  if (window.innerWidth <= 1000) {
+    if (nav && !nav.classList.contains("mobile-sidebar")) {
+      nav.classList.add("mobile-sidebar");
+      nav.classList.remove("sidebar");
+    }
   } else {
-    // Collapse the sidebar
-    todo.style.left = "0";
-    line3.style.top = "0px";
-    line1.style.top = "0px";
-    line1.style.width = "100%";
-    line3.style.width = "100%";
-    sidebar.style.left = "-15vw";
-    // Animate hamburger icon back to original state
-    line1.style.transform = "rotate(0deg)";
-    line2.style.opacity = "1";
-    line3.style.transform = "rotate(0deg)";
-    // Hide task-related buttons
-    document.querySelector(".task-add").style.display = "none";
-    document
-      .querySelectorAll(".deleteTaskBtn")
-      .forEach((btn) => (btn.style.display = "none"));
-    document
-      .querySelectorAll(".editTaskBtn")
-      .forEach((btn) => (btn.style.display = "none"));
+    if (nav && nav.classList.contains("mobile-sidebar")) {
+      nav.classList.add("sidebar");
+      nav.classList.remove("mobile-sidebar");
+    }
   }
-});
+};
 
-const close_M_sidebar = document.querySelector(".close-m-sidebar");
-close_M_sidebar.addEventListener("click", () => {
-  if (document.querySelector(".mobile-sidebar").style.bottom === "-15vh") {
-    document.querySelector(".mobile-sidebar").style.bottom = "0px";
-    close_M_sidebar.style.transform = "rotate(180deg)";
-  } 
-  else {
-    document.querySelector(".mobile-sidebar").style.bottom = "-15vh";
-    close_M_sidebar.style.transform = "rotate(0deg)";
-    // Hide task-related buttons
-    document.querySelector(".task-add").style.display = "none";
-    document
-      .querySelectorAll(".deleteTaskBtn")
-      .forEach((btn) => (btn.style.display = "none"));
-    document
-      .querySelectorAll(".editTaskBtn")
-      .forEach((btn) => (btn.style.display = "none"));
-  }
-});
+adjustSidebarForDevice();
 
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    adjustSidebarForDevice();
+  }, 250); // Adjust the timeout value as needed
+});
 
 // Event listener for sidebar add task button click
 document.querySelector(".add").addEventListener("click", () => {
@@ -117,14 +159,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskValue = taskInput.value.trim();
     // Check if task input is not empty
     // Convert both the input date and current date to Date objects and then to time values
-    if (taskValue && (!dateInput.value || new Date(dateInput.value + "T00:00:00").getTime() >= new Date().setHours(0, 0, 0, 0))) {
+    if (
+      taskValue &&
+      (!dateInput.value ||
+        new Date(dateInput.value + "T00:00:00").getTime() >=
+          new Date().setHours(0, 0, 0, 0))
+    ) {
       // Add task and increment ID counter
       addTask(taskValue, dateInput.value, false, taskIdCounter++);
       // Reset input field
       taskInput.value = "";
       dateInput.value = "";
-    } 
-    else {
+    } else {
       alert("Please enter a valid task and a future date or no date at all!");
     }
   });
