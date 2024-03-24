@@ -228,14 +228,14 @@ const addTask = (text, date, isChecked = false, id, isPriority = false) => {
 
   // Event listener for delete button
   const deleteButton = newTask.querySelector(".deleteTaskBtn");
-  deleteButton.addEventListener("click", () => {
+  deleteButton.addEventListener("click", function() {
     // Remove the task from DOM and save the state
     this.parentElement.remove();
     saveTasks();
   });
 
   const priorityButton = newTask.querySelector(".priority");
-  priorityButton.addEventListener("click", () => {
+  priorityButton.addEventListener("click", function() {
     // Toggle priority status and class
     const parentTask = this.closest(".todo");
     if (parentTask.classList.contains("priority-task")) {
@@ -254,7 +254,7 @@ const addTask = (text, date, isChecked = false, id, isPriority = false) => {
 
   // Event listener for edit button
   const editButton = newTask.querySelector(".editTaskBtn");
-  editButton.addEventListener("click", () => {
+  editButton.addEventListener("click", function() {
     // Replace label with input field for editing
     const label = this.parentNode.querySelector(".todo-text");
     const oldValue = label.textContent;
