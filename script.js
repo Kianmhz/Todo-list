@@ -1,3 +1,14 @@
+// Hide task-related buttons on load when sidebar is closed
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".task-add").style.display = "none";
+  document
+    .querySelectorAll(".deleteTaskBtn")
+    .forEach((btn) => (btn.style.display = "none"));
+  document
+    .querySelectorAll(".editTaskBtn")
+    .forEach((btn) => (btn.style.display = "none"));
+});
+
 // Event listener for hamburger menu click
 document.querySelector(".hamburger-menu").addEventListener("click", () => {
   // Select elements from the DOM
@@ -9,8 +20,8 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
   let line3 = document.querySelector(".line-3");
 
   if (sidebar) {
-    // Check the current state of the sidebar and toggle it
-    if (sidebar.style.left === "-15vw") {
+    // Check if sidebar is in its initial state or hasn't been set by JS yet
+    if (sidebar.style.left === "-15vw" || sidebar.style.left === "") {
       // Expand the sidebar
       todo.style.left = "7.5vw";
       sidebar.style.left = "0px";
@@ -23,8 +34,7 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
       // Using pythagoras theorem to calculate the width of the lines
       line1.style.width = "42.4px";
       line3.style.width = "42.4px";
-    } 
-    else {
+    } else {
       // Collapse the sidebar
       todo.style.left = "0";
       line3.style.top = "0px";
@@ -47,7 +57,11 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
     }
   }
   if (mobile_sidebar) {
-    if (mobile_sidebar.style.bottom === "-280px") {
+    // Check if mobile_sidebar is in its initial state or hasn't been set by JS yet
+    if (
+      mobile_sidebar.style.bottom === "-280px" ||
+      mobile_sidebar.style.bottom === ""
+    ) {
       mobile_sidebar.style.bottom = "0px";
       // Animate hamburger icon to cross
       line1.style.transform = "rotate(45deg)";
@@ -58,8 +72,7 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
       // Using pythagoras theorem to calculate the width of the lines
       line1.style.width = "42.4px";
       line3.style.width = "42.4px";
-    } 
-    else {
+    } else {
       mobile_sidebar.style.bottom = "-280px";
       line3.style.top = "0px";
       line1.style.top = "0px";
@@ -88,11 +101,13 @@ const adjustSidebarForDevice = () => {
     if (nav && !nav.classList.contains("mobile-sidebar")) {
       nav.classList.add("mobile-sidebar");
       nav.classList.remove("sidebar");
+      nav.style.cssText = "";
     }
   } else {
     if (nav && nav.classList.contains("mobile-sidebar")) {
       nav.classList.add("sidebar");
       nav.classList.remove("mobile-sidebar");
+      nav.style.cssText = "";
     }
   }
 };

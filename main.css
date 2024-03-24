@@ -116,6 +116,7 @@ body {
   flex-direction: column;
   position: relative;
   transition: all 0.3s ease;
+  left: 0;
 }
 
 /* To make sure title stays at start */
