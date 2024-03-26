@@ -174,12 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskValue = taskInput.value.trim();
     // Check if task input is not empty
     // Convert both the input date and current date to Date objects and then to time values
-    if (
-      taskValue &&
-      (!dateInput.value ||
-        new Date(dateInput.value + "T00:00:00").getTime() >=
-          new Date().setHours(0, 0, 0, 0))
-    ) {
+    if (taskValue &&(!dateInput.value || new Date(dateInput.value + "T00:00:00").getTime() >= new Date().setHours(0, 0, 0, 0))) {
       // Add task and increment ID counter
       addTask(taskValue, dateInput.value, false, taskIdCounter++);
       // Reset input field
@@ -201,9 +196,7 @@ const addTask = (text, date, isChecked = false, id, isPriority = false) => {
   // Create HTML string for the new task
   const newTaskHTML = `
         <div class="todo${taskPriorityClass}">
-            <input class="todo-state" type="checkbox" id="todo-${id}" ${
-    isChecked ? "checked" : ""
-  }/>
+            <input class="todo-state" type="checkbox" id="todo-${id}" ${isChecked ? "checked" : ""}/>
             <div class="checkbox">
                 <div class="checkmark"></div>
                 <span class="top"></span>
@@ -215,9 +208,7 @@ const addTask = (text, date, isChecked = false, id, isPriority = false) => {
             <small class="todo-date">${date}</small>
             <div class="editTaskBtn" style="display:none; color:lightblue; cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></div>
             <div class="deleteTaskBtn" style="display:none; color:red; cursor:pointer;"><i class="fa-regular fa-trash-can"></i></div>
-            <div class="priority"><i class="fa${
-              isPriority ? "-solid" : "-regular"
-            } fa-star fa-lg"></i></div>
+            <div class="priority"><i class="fa${isPriority ? "-solid" : "-regular"} fa-star fa-lg"></i></div>
         </div>
     `;
 
@@ -295,7 +286,7 @@ document.addEventListener("change", (event) => {
   }
 });
 
-// Function to save tasks to local storage
+// Function to save tasks to server using PHP
 const saveTasks = () => {
   const tasks = document.querySelectorAll(".todo");
   const tasksData = [];
@@ -304,35 +295,48 @@ const saveTasks = () => {
     const text = task.querySelector(".todo-text").textContent;
     const date = task.querySelector(".todo-date").textContent;
     const isChecked = task.querySelector(".todo-state").checked;
-    const isPriority = task
-      .querySelector(".priority i")
-      .classList.contains("fa-solid");
+    const isPriority = task.querySelector(".priority i").classList.contains("fa-solid");
     console.log({ text, date, isChecked, isPriority });
     tasksData.push({ text, date, isChecked, isPriority });
   });
 
-  // Save tasks array to local storage
-  localStorage.setItem("tasks", JSON.stringify(tasksData));
+  fetch('saveTasks.php', { // Send a fetch request to saveTasks.php
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(tasksData) // Convert tasks array to JSON string and set as request body
+})
 };
 
-// Function to load tasks from local storage
-const loadTasks = () => {
-  const tasksData = JSON.parse(localStorage.getItem("tasks"));
+const loadTasks = async () => {
+  try {
+    // Send a fetch request to load_tasks.php and wait for the response
+    const response = await fetch('load_tasks.php');
+    // Wait for the response to be parsed as JSON
+    const tasksData = await response.json();
 
-  // Iterate over tasks data and add each task to DOM
-  if (tasksData) {
-    tasksData.forEach((taskData) => {
-      addTask(
-        taskData.text,
-        taskData.date,
-        taskData.isChecked,
-        taskIdCounter++,
-        taskData.isPriority
-      );
-    });
+    // Check if tasksData is defined and has data
+    if (tasksData) {
+      // Iterate over tasks data and add each task to the DOM
+      tasksData.forEach((taskData) => {
+        addTask(
+          taskData.text,
+          taskData.date,
+          taskData.isChecked,
+          taskIdCounter++, // Make sure taskIdCounter is defined somewhere in your code
+          taskData.isPriority
+        );
+      });
+    }
+  } catch (error) {
+    // Handle any errors that occur during the fetch or data processing
+    console.error('Error loading tasks:', error);
   }
 };
 
+
+// Event listener for dark mode toggle
 const lightModeColors = {
   "--primary-color": "#EEEEEE",
   "--secondary-color": "#00ADB5",
