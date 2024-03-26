@@ -1,6 +1,6 @@
 <?php
 // Connection variables
-$servername = "localhost";
+$servername = "10.0.0.31";
 $username = "root";
 $password = "";
 $dbname = "todolist_db";

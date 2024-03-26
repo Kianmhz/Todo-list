@@ -8,18 +8,22 @@
     ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="auth.css" />
-    <title>login</title>
+    <title>signup</title>
 </head>
 <main class="main">
 	<div class="container">
 		<section class="wrapper">
 			<div class="heading">
-				<h1 class="text text-large">Sign In</h1>
+				<h1 class="text text-large">Sign up</h1>
 			</div>
-            <form name="signup" class="form">
+            <form name="signup" class="form" method="POST" action="/signup.php">
                 <div class="input-control">
                     <label for="F-name" class="input-label" hidden>Full Name</label>
                     <input type="text" name="F-name" class="input-field" placeholder="Full Name" required>
+                </div>
+                <div class="input-control">
+                    <label for="username" class="input-label" hidden>Username</label>
+                    <input type="text" name="username" class="input-field" placeholder="Username" required>
                 </div>
                 <div class="input-control">
                     <label for="email" class="input-label" hidden>Email</label>
@@ -44,7 +48,7 @@
 			</div>
 			<div class="method">
 				<div class="method-control">
-					<a href="#" class="method-action">
+					<a href="/main.html" class="method-action">
 						<i class="ion ion-logo-apple"></i>
 						<span></i>Enter as a Guest</span>
 					</a>

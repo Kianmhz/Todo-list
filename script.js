@@ -300,7 +300,7 @@ const saveTasks = () => {
     tasksData.push({ text, date, isChecked, isPriority });
   });
 
-  fetch('saveTasks.php', { // Send a fetch request to saveTasks.php
+  fetch('save_tasks.php', { // Send a fetch request to saveTasks.php
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
