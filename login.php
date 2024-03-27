@@ -1,6 +1,6 @@
+<?php include 'middleware.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8" />
 	<script src="https://kit.fontawesome.com/bc8482cdd5.js" crossorigin="anonymous"></script>
@@ -13,7 +13,7 @@
 		<section class="wrapper">
 			<div class="heading">
 				<h1 class="text text-large">Sign In</h1>
-				<p class="text text-normal">New user? <span><a href="/signup.html" class="text text-links">Create an
+				<p class="text text-normal">New user? <span><a href="/signup_P.php" class="text text-links">Create an
 							account</a></span>
 				</p>
 			</div>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="method">
 				<div class="method-control">
-					<a href="/main.html" class="method-action">
+					<a href="/main.php" class="method-action">
 						<i class="ion ion-logo-apple"></i>
 						<span></i>Enter as a Guest</span>
 					</a>

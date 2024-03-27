@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll(".editTaskBtn")
     .forEach((btn) => (btn.style.display = "none"));
+    loadTheme();
 });
 
 // Event listener for hamburger menu click
@@ -296,7 +297,6 @@ const saveTasks = () => {
     const date = task.querySelector(".todo-date").textContent;
     const isChecked = task.querySelector(".todo-state").checked;
     const isPriority = task.querySelector(".priority i").classList.contains("fa-solid");
-    console.log({ text, date, isChecked, isPriority });
     tasksData.push({ text, date, isChecked, isPriority });
   });
 
@@ -364,6 +364,7 @@ lightmode.addEventListener("click", () => {
     applyColors(darkModeColors);
   }
   document.body.classList.toggle("dark-mode");
+  saveTheme();
 });
 
 const applyColors = (colorScheme) => {
@@ -372,3 +373,23 @@ const applyColors = (colorScheme) => {
     root.style.setProperty(key, colorScheme[key]);
   });
 };
+
+function saveTheme() {
+  const theme = document.body.classList.contains("dark-mode")
+    ? "dark"
+    : "light";
+  localStorage.setItem("theme", theme);
+}
+
+function loadTheme() {
+  const theme = localStorage.getItem("theme");
+  if (theme === "dark") {
+    document.body.classList.add("dark-mode");
+    lightmode.innerHTML = "Switch to Light mode";
+    applyColors(darkModeColors);
+  } else {
+    document.body.classList.remove("dark-mode");
+    lightmode.innerHTML = "Switch to Dark mode";
+    applyColors(lightModeColors);
+  }
+}

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,11 +32,17 @@
     </ul>
     <footer>
       <div class="footer-line"></div>
-      <a href="/login.html">
-        <strong>Log in</strong>
-      </a>
+      <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true): ?>
+          <a href="/logout.php">
+              <strong>Logout</strong>
+          </a>
+      <?php else: ?>
+          <a href="/login.php">
+              <strong>Log in</strong>
+          </a>
+      <?php endif; ?>
       <div class="footer-line"></div>
-    </footer>
+  </footer>
     <!-- <footer>
         <div class="footer-line"></div>
           <a href="https://github.com/Kianmhz">
@@ -47,7 +54,11 @@
   <!-- todo list -->
   <div class="todo-list">
     <div class="container" id="todo-container">
-      <h1 class="todo-title">My To-do List</h1>
+      <?php
+      // Check if the user is logged in, otherwise use 'Guest'
+      $username = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true ? htmlspecialchars($_SESSION["username"]) : 'My';
+      ?>
+      <h1 class="todo-title"><?php echo $username; ?> To-do List</h1>
     </div>
   </div>
   <script src="script.js"></script>

@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-$servername = "10.0.0.31";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "todolist_db";
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->execute()) {
                 echo "Signup successful!";
                 // Redirect to another page or show a success message
-                header("Location: login.html");
+                header("Location: login.php");
             } else {
                 echo "Error with execution: " . $stmt->error;
             }

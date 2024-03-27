@@ -1,6 +1,7 @@
 <?php
+session_start(); 
 // Connection variables
-$servername = "10.0.0.31";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "todolist_db";
@@ -13,21 +14,26 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, text, date, isChecked, isPriority FROM tasks";
-$result = $conn->query($sql);
+if ($_SESSION["loggedin"]) {
+    $sql = "SELECT id, text, date, isChecked, isPriority, user_id FROM tasks";
+    $result = $conn->query($sql);
 
-$tasks = [];
+    $tasks = [];
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while ($row = $result->fetch_assoc()) {
-        // changes phps defual bollean values of 0 and 1 to true and false
-        $row["isChecked"] = $row["isChecked"] == 1;
-        $row["isPriority"] = $row["isPriority"] == 1;
-        $tasks[] = $row;
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            // changes phps defual bollean values of 0 and 1 to true and false
+            $row["isChecked"] = $row["isChecked"] == 1;
+            $row["isPriority"] = $row["isPriority"] == 1;
+            if ($row["user_id"] == $_SESSION["id"]) {
+                $tasks[] = $row;
+            }
+        }
+        echo json_encode($tasks);
+    } else {
+        echo "0 results";
     }
-    echo json_encode($tasks);
-} else {
-    echo "0 results";
+    $conn->close();
 }
-$conn->close();
+?> 

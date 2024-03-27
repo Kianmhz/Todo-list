@@ -1,3 +1,4 @@
+<?php include 'middleware.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,7 +49,7 @@
 			</div>
 			<div class="method">
 				<div class="method-control">
-					<a href="/main.html" class="method-action">
+					<a href="/main.php" class="method-action">
 						<i class="ion ion-logo-apple"></i>
 						<span></i>Enter as a Guest</span>
 					</a>

@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-$servername = "10.0.0.31";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "todolist_db";
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare SQL to select the user from the database
         // IMPORTANT: Use prepared statements to avoid SQL injection
         $sql = "SELECT id, username, password FROM users WHERE username = ?";
-        
+
         // Assuming $conn is your database connection
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
@@ -46,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Store data in session variables
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $user['id'];
-                        $_SESSION["username"] = $user['username'];                            
-                        
+                        $_SESSION["username"] = $user['username'];
+
                         // Redirect user to welcome page
-                        header("location: main.html");
+                        header("location: main.php");
                     } else {
                         // Display an error message if password is not valid
                         echo "The password you entered was not valid.";
@@ -64,4 +64,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-?>
