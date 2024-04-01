@@ -157,7 +157,7 @@ body {
   transition: width 1s ease-in-out;
 }
 
-.todo-state:checked ~ .todo-text::before {
+.todo-state:checked~.todo-text::before {
   width: 100%;
 }
 
@@ -179,7 +179,7 @@ body {
   transition: all 0.25s ease-in;
 }
 
-.todo-state:checked ~ .checkbox .right {
+.todo-state:checked~.checkbox .right {
   top: 0;
   bottom: unset;
 }
@@ -197,7 +197,7 @@ body {
   transition: all 0.25s 0.25s ease-in-out;
 }
 
-.todo-state:checked ~ .checkbox .top {
+.todo-state:checked~.checkbox .top {
   left: 0;
   right: unset;
 }
@@ -210,7 +210,7 @@ body {
   transition: all 0.25s 0.5s ease-in-out;
 }
 
-.todo-state:checked ~ .checkbox .left {
+.todo-state:checked~.checkbox .left {
   bottom: 0;
   top: unset;
 }
@@ -223,18 +223,18 @@ body {
   transition: all 0.25s 0.75s ease-out;
 }
 
-.todo-state:checked ~ .checkbox .bottom {
+.todo-state:checked~.checkbox .bottom {
   right: 0;
   left: unset;
 }
 
-.todo-state:checked ~ .checkbox .right,
-.todo-state:checked ~ .checkbox .left {
+.todo-state:checked~.checkbox .right,
+.todo-state:checked~.checkbox .left {
   height: 0;
 }
 
-.todo-state:checked ~ .checkbox .top,
-.todo-state:checked ~ .checkbox .bottom {
+.todo-state:checked~.checkbox .top,
+.todo-state:checked~.checkbox .bottom {
   width: 0;
 }
 
@@ -271,21 +271,21 @@ body {
   transition: height 0.5s 1.5s ease;
 }
 
-.todo-state:checked ~ .checkbox .checkmark::before {
+.todo-state:checked~.checkbox .checkmark::before {
   width: 100%;
 }
 
-.todo-state:checked ~ .checkbox .checkmark::after {
+.todo-state:checked~.checkbox .checkmark::after {
   height: 100%;
 }
 
-.todo-state:not(:checked) ~ .checkbox .checkmark::before {
+.todo-state:not(:checked)~.checkbox .checkmark::before {
   left: 0;
   right: unset;
   transition-delay: 0s;
 }
 
-.todo-state:not(:checked) ~ .checkbox .checkmark::after {
+.todo-state:not(:checked)~.checkbox .checkmark::after {
   bottom: 0;
   top: unset;
   transition-delay: 0.5s;
@@ -346,11 +346,9 @@ footer {
 
 .footer-line {
   height: 1px;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0),
-    var(--quaternary-color),
-    rgba(255, 255, 255, 0)
-  );
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 0),
+      var(--quaternary-color),
+      rgba(255, 255, 255, 0));
   flex-grow: 1;
 }

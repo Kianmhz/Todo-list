@@ -1,24 +1,22 @@
 // Hide task-related buttons on load when sidebar is closed
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".task-add").style.display = "none";
-  document
-    .querySelectorAll(".deleteTaskBtn")
-    .forEach((btn) => (btn.style.display = "none"));
-  document
-    .querySelectorAll(".editTaskBtn")
-    .forEach((btn) => (btn.style.display = "none"));
-    loadTheme();
+  document.querySelectorAll(".deleteTaskBtn").forEach((btn) => (btn.style.display = "none"));
+  document.querySelectorAll(".editTaskBtn").forEach((btn) => (btn.style.display = "none"));
+  loadTheme();
 });
 
 // Event listener for hamburger menu click
 document.querySelector(".hamburger-menu").addEventListener("click", () => {
   // Select elements from the DOM
-  let sidebar = document.querySelector(".sidebar");
+  sidebar = document.querySelector(".sidebar");
   let mobile_sidebar = document.querySelector(".mobile-sidebar");
   let todo = document.getElementById("todo-container");
   let line1 = document.querySelector(".line-1");
   let line2 = document.querySelector(".line-2");
   let line3 = document.querySelector(".line-3");
+  let mobile_sidebarCurrentHeight;
+  let mobile_sidebarNewHeight;
 
   if (sidebar) {
     // Check if sidebar is in its initial state or hasn't been set by JS yet
@@ -58,12 +56,16 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
     }
   }
   if (mobile_sidebar) {
+    mobile_sidebarCurrentHeight = mobile_sidebar.offsetHeight;
+    document.querySelector(".task-add").style.display = "block";
     // Check if mobile_sidebar is in its initial state or hasn't been set by JS yet
     if (
       mobile_sidebar.style.bottom === "-280px" ||
       mobile_sidebar.style.bottom === ""
     ) {
       mobile_sidebar.style.bottom = "0px";
+      mobile_sidebarNewHeight = mobile_sidebarCurrentHeight + 150;
+      mobile_sidebar.style.height = mobile_sidebarNewHeight + "px";
       // Animate hamburger icon to cross
       line1.style.transform = "rotate(45deg)";
       line2.style.opacity = "0";
@@ -74,6 +76,8 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
       line1.style.width = "42.4px";
       line3.style.width = "42.4px";
     } else {
+      mobile_sidebarNewHeight = mobile_sidebarCurrentHeight - 150;
+      mobile_sidebar.style.height = mobile_sidebarNewHeight + "px";
       mobile_sidebar.style.bottom = "-280px";
       line3.style.top = "0px";
       line1.style.top = "0px";
@@ -83,8 +87,6 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
       line1.style.transform = "rotate(0deg)";
       line2.style.opacity = "1";
       line3.style.transform = "rotate(0deg)";
-      // Hide task-related buttons
-      document.querySelector(".task-add").style.display = "none";
       document
         .querySelectorAll(".deleteTaskBtn")
         .forEach((btn) => (btn.style.display = "none"));
@@ -127,10 +129,10 @@ window.addEventListener("resize", () => {
 document.querySelector(".add").addEventListener("click", () => {
   let addTask = document.querySelector(".task-add");
   // Toggle the display of the add task input
-  if (addTask.style.display === "none") {
-    addTask.style.display = "block";
-  } else {
+  if (addTask.style.display === "block" && sidebar) {
     addTask.style.display = "none";
+  } else {
+    addTask.style.display = "block";
   }
 });
 
