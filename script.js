@@ -64,7 +64,7 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
       mobile_sidebar.style.bottom === ""
     ) {
       mobile_sidebar.style.bottom = "0px";
-      mobile_sidebarNewHeight = mobile_sidebarCurrentHeight + 150;
+      mobile_sidebarNewHeight = mobile_sidebarCurrentHeight + 170;
       mobile_sidebar.style.height = mobile_sidebarNewHeight + "px";
       // Animate hamburger icon to cross
       line1.style.transform = "rotate(45deg)";
@@ -76,7 +76,7 @@ document.querySelector(".hamburger-menu").addEventListener("click", () => {
       line1.style.width = "42.4px";
       line3.style.width = "42.4px";
     } else {
-      mobile_sidebarNewHeight = mobile_sidebarCurrentHeight - 150;
+      mobile_sidebarNewHeight = mobile_sidebarCurrentHeight - 170;
       mobile_sidebar.style.height = mobile_sidebarNewHeight + "px";
       mobile_sidebar.style.bottom = "-280px";
       line3.style.top = "0px";
